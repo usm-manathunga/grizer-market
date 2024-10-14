@@ -4,6 +4,7 @@ import com.grizer.graizerproduct.dto.ProductDto;
 import com.grizer.graizerproduct.model.Product;
 import com.grizer.graizerproduct.repository.ProductRepository;
 import com.grizer.graizerproduct.service.ProductService;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@Transactional
 public class ProductServiceImpl implements ProductService {
 	@Autowired
 	private ProductRepository productRepository;
@@ -29,6 +31,8 @@ public class ProductServiceImpl implements ProductService {
 
 	@Override
 	public ProductDto getProduct(int productId) {
+
+		System.out.println("productId: " + productId);
 		Product product = productRepository.getProductById(productId);
 		return modelMapper.map(product, ProductDto.class);
 	}

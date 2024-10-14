@@ -23,12 +23,12 @@ public class ProductController {
 		return productService.getProduct(productId);
 	}
 
-	@PostMapping("/saveProduct")
+	@PostMapping("/addProduct")
 	public ProductDto saveProduct(@RequestBody ProductDto productDto){
 		return productService.saveProduct(productDto);
 	}
 
-	@PostMapping("/updateProduct")
+	@PutMapping("/updateProduct")
 	public ProductDto updateProduct(@RequestBody ProductDto productDto){
 		return productService.updateProduct(productDto);
 	}

@@ -19,7 +19,7 @@ import java.util.Date;
 public class Order {
 	@Id
 	private int id;
-	private int ItemId;
-	private Date OrderDate;
+	private int itemId;
+	private Date orderDate;
 	private String amount;
 }

@@ -15,5 +15,7 @@ import lombok.Setter;
 public class Inventory {
 	@Id
 	private int id;
-	private String inventoryName;
+	private int itemId;
+	private int productId;
+	private int quantity;
 }

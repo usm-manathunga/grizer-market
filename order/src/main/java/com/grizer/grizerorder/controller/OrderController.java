@@ -1,6 +1,9 @@
 package com.grizer.grizerorder.controller;
 
+import com.grizer.base.dto.OrderEventDto;
+import com.grizer.grizerorder.common.OrderResponse;
 import com.grizer.grizerorder.dto.OrderDto;
+import com.grizer.grizerorder.kafka.OrderProducer;
 import com.grizer.grizerorder.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +17,9 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 
+	@Autowired
+	private OrderProducer orderProducer;
+
 	@GetMapping("/getAllOrders")
 	public List<OrderDto> getAllOrders() {
 		return orderService.getAllOrderList();
@@ -25,7 +31,11 @@ public class OrderController {
 	}
 
 	@PostMapping("/saveOrder")
-	public OrderDto saveOrder(@RequestBody OrderDto orderDto){
+	public OrderResponse saveOrder(@RequestBody OrderDto orderDto){
+		OrderEventDto orderEventDto = new OrderEventDto();
+		orderEventDto.setMessage("Order is committed");
+		orderEventDto.setStatus("pending");
+		orderProducer.sendMassage(orderEventDto);
 		return orderService.saveOrder(orderDto);
 	}
 
